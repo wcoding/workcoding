@@ -27,4 +27,4 @@ function startup() {
 }
 
 // Константа, где будет храниться путь до вьюшек
-define('VIEW', '/theme/');
+define('VIEW', 'theme/');
