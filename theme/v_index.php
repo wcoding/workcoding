@@ -1,1 +1,0 @@
-<?/*Шаблон главной страницы=======================$article['id_article'] - идентификатор статьи$article['title'] - заголовок$article['content'] - содержание*/?><?foreach($articles as $article):?>	<h1>		<a href="article.php?id=<?=$article['id_article']?>"><?=$article['title']?></a>	</h1>	<p><?=$article['intro']?></p>	<hr><? endforeach; ?>
