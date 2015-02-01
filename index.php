@@ -1,1 +1,31 @@
-<?phpinclude_once('startup.php');include_once('model.php');// Установка параметров, подключение к БД, запуск сессии.startup();// Вытащить все статьи.$articles = articles_all();// Добавить краткое описание к каждой статьеforeach($articles as $key => $article){	$articles[$key]['intro'] = article_intro($article);}// Подготовить внутренний шаблон страницы для передачи его в базовый шаблон$v_index = get_html( 'v_index.php', array('articles' => $articles) );// Подставить в базовый шаблон сайта, шаблон конкретной страницы// и вывести всё на экранecho get_html( 'v_base.php', array('content' => $v_index) );
+<?php
+// Константы основных дерикторий сайта,
+// параметры подключения к БД, префикс методов класса.
+include_once('config.php');
+
+// Языковые настройки, настройки временной зоны, запуск сессии,
+// автозагрузка классов.
+include_once(APPPATH . 'startup.php');
+
+// Получить название метода класса из URL
+$action .= (isset($_GET['act'])) ? $_GET['act'] : 'index';
+
+// Получить название контроллера из URL
+$c = isset($_GET['c']) ? $_GET['c'] : '' ;
+
+// Создать экземпляр класса.
+// При попытке создать экземпляр класса
+// срабатывает __autoload и инклюдит файл,
+// с именем такимже, как имя класса.
+switch ($c)
+{
+	case 'editor':
+		$controller = new C_Editor();
+		break;
+	default:
+		$controller = new C_Page();
+}
+
+// Передать имя метода, который должен отработать у класса
+// экземпляр которого только что был создан.
+$controller->Request($action);
