@@ -1,11 +1,13 @@
 <?php
-// Константы основных дерикторий сайта,
-// параметры подключения к БД, префикс методов класса.
-include_once('config.php');
+// Константы основных дерикторий сайта, префикс методов класса.
+include_once('path.const.php');
 
 // Языковые настройки, настройки временной зоны, запуск сессии,
 // автозагрузка классов.
-include_once(APPPATH . 'startup.php');
+require APPPATH . 'startup.php';
+
+// Префикс методов класса
+$action = Core::GetConfig('settings', 'actionPrefix');
 
 // Получить название метода класса из URL
 $action .= (isset($_GET['act'])) ? $_GET['act'] : 'index';

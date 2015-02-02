@@ -1,4 +1,4 @@
-<?php
+<?php defined('SYSPATH') OR die('No direct script access.');
 /**
  * Базовый контроллер сайта.
 */
@@ -19,7 +19,7 @@ abstract class C_Base extends Controller
 	 */
 	protected function before()
 	{
-		$this->title = 'PHP. Уровень 2';
+		$this->title = Core::GetConfig('settings', 'siteName');
 		$this->content = '';
 	}
 	

@@ -1,4 +1,4 @@
-<?php
+<?php defined('SYSPATH') OR die('No direct script access.');
 /**
  * Помощник работы с БД
 */
@@ -16,14 +16,16 @@ class MySQLDriver implements DataBaseDriver
 	
 	private function __construct()
 	{
+		$config = Core::GetConfig('database');
+
 		// Подключение к БД.
-		mysql_connect(HOSTNAME, USERNAME, PASSWORD) or die('No connect with data base');
+		mysql_connect($config['hostname'], $config['username'], $config['password']) or die('No connect with data base');
 
 		// Установить кодировку по умолчанию для текущего соединения
-		mysql_set_charset("SET NAMES utf8");
+		mysql_set_charset("SET NAMES {$config['charset']}");
 
 		// Выбрать БД, с которой будим работать.
-		mysql_select_db(DBNAME) or die('No data base');
+		mysql_select_db($config['database']) or die('No data base');
 	}
 
 
