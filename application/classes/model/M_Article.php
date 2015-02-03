@@ -23,7 +23,7 @@ class M_Article
 	}
 
 
-	public function __construct()
+	private function __construct()
 	{
 		$this->dbase = MySQLDriver::Instance();
 	}

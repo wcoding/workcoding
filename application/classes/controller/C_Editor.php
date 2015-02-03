@@ -9,7 +9,7 @@ class C_Editor extends C_Base
 	
 	function __construct()
 	{
-		$this->mArticle = new M_Article();
+		$this->mArticle = M_Article::Instance();
 	}
 
 
