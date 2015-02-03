@@ -19,10 +19,10 @@ class MySQLDriver implements DataBaseDriver
 		$config = Core::GetConfig('database');
 
 		// Подключение к БД.
-		mysql_connect($config['hostname'], $config['username'], $config['password']) or die('No connect with data base');
+		$connect = mysql_connect($config['hostname'], $config['username'], $config['password']) or die('No connect with data base');
 
 		// Установить кодировку по умолчанию для текущего соединения
-		mysql_set_charset("SET NAMES {$config['charset']}");
+		mysql_set_charset($config['charset'], $connect);
 
 		// Выбрать БД, с которой будим работать.
 		mysql_select_db($config['database']) or die('No data base');
