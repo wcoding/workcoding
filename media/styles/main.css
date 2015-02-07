@@ -1,0 +1,41 @@
+body 
+{
+	font-family: Georgia;
+	font-size: 14px;
+	color: #000;
+}
+
+a 
+{
+	color: #00f;
+	text-decoration: none;
+}
+
+a:hover 
+{
+	text-decoration: underline;
+}
+
+input[type="text"]
+{
+	width: 500px;
+}
+
+textarea
+{
+	width: 500px;
+	height: 300px;
+}
+
+.wrapper
+{
+	width: 950px;
+	height: auto;
+	margin: 20px auto 100px auto;
+}
+
+.wrapper form .star:after {
+	content: '* ';
+	color: red;
+	font-size: 20px;
+}
