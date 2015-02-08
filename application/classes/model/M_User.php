@@ -210,6 +210,74 @@ class M_User
 
 
 	/**
+	 * Получить список всех пользователей
+	 *
+	 * @return array массив данных всех пользователей, включая их роли
+     */
+	public function GetAll()
+	{
+		$query = "SELECT users.id_user,
+						 users.login,
+						 users.name as username,
+						 roles.id_role,
+						 roles.name as rolename,
+						 roles.description
+				FROM users
+				JOIN roles
+				ON users.id_role = roles.id_role
+				ORDER BY users.id_user";
+
+		return $this->dbase->Select($query);
+	}
+
+
+
+	/**
+	 * Получить список всех ролей
+	 *
+	 * @return array ассоциативный массив
+     */
+	public function GetRoles()
+	{
+		$query = "SELECT * FROM roles";
+		return $this->dbase->Select($query);
+	}
+
+
+
+	/**
+	 * Редактировать данные пользователя
+	 *
+	 * @param int $id_user идентификатор пользователя, чьи данные изменить
+	 * @param string $username имя пользователя
+	 * @param int $id_role идентифмкатор роли пользователя
+	 * @return bool|int
+     */
+	public function Edit($id_user, $username, $id_role)
+	{
+		// Подготовка.
+		$username = trim($username);
+		$id_user = (int)$id_user;
+		$id_role = (int)$id_role;
+
+		// Проверка.
+		if ($username == '')
+			return false;
+
+		// Запрос.
+		$obj = array();
+		$obj['name'] = $username;
+		$obj['id_role'] = $id_role;
+
+		// Условие в запросе
+		$where = "id_user = $id_user";
+
+		return $this->dbase->Update('users', $obj, $where);
+	}
+
+
+
+	/**
 	 * Получает пользователя по логину
 	 *
 	 * @param string $login логин пользователя
