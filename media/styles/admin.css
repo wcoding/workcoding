@@ -3,3 +3,17 @@
 body{
     background-color: floralwhite;
 }
+
+table.users-editor{
+    width: 100%;
+}
+
+table.users-editor th{
+    padding: 10px 0px;
+}
+
+table.users-editor td{
+    border-collapse: collapse;
+    border-bottom: 1px solid black;
+    padding: 5px 0px 5px 10px;
+}
