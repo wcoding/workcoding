@@ -20,9 +20,14 @@ class C_UserPanel extends C_BasePublicly
         $this->mUsers->ClearSessions();
 
         // Если пользователь не зарегистрирован - отправляем на страницу регистрации.
-        if ($this->mUsers->Get() == null)
-        {
+        if ($this->mUsers->Get() == null) {
             header('Location: index.php?c=auth&act=login');
+            exit;
+        }
+
+        // Если пользователь получил ban, дать отлуп
+        if ($this->mUsers->Can('NO_ACCESS')) {
+            header('Location: index.php?c=auth&act=logout');
             exit;
         }
 
