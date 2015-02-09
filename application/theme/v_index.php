@@ -8,7 +8,7 @@ $article['content'] - содержание
 <?foreach($articles as $article):?>
 
 	<h1>
-		<a href="index.php?act=post&id=<?=$article['id_article']?>"><?=$article['title']?></a>
+		<a href="<?=BASEURL,'article/index/',$article['id_article']?>"><?=$article['title']?></a>
 	</h1>
 	<p><?=$article['intro']?></p>
 	<hr>

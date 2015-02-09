@@ -8,7 +8,7 @@
     <b style="color: red;">Ошибка! Неверные логин или пароль.</b>
 <? endif; ?>
 
-<form method="post" action="index.php?c=auth&act=login">
+<form method="post" action="<?=BASEURL,'auth/login'?>">
     <label class="star">Логин: </label>
     <br>
     <input type="text" name="login" value="">
@@ -18,6 +18,6 @@
     <br><br>
     <label><input type="checkbox" name="remember"> Запомить меня</label>
     <br><br>
-    <input type="submit" value="Войти"> | <a href="index.php?c=auth&act=register">Регистрация</a>
+    <input type="submit" value="Войти"> | <a href="<?=BASEURL,'auth/register'?>">Регистрация</a>
 </form>
 <br>

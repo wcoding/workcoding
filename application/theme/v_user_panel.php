@@ -7,10 +7,10 @@ $user['name'] ник пользователя
 <br>
 <ul>
 <? if($can): ?>
-    <li><a href="index.php?c=editor">Консоль редактора</a></li>
+    <li><a href="<?=BASEURL,'editor'?>">Консоль редактора</a></li>
 <? endif; ?>
 
-    <li><a href="index.php?c=auth&act=logout">Выйти</a></li>
+    <li><a href="<?=BASEURL,'auth/logout'?>">Выйти</a></li>
 </ul>
 
 <? if(isset($message)): ?>
@@ -26,10 +26,10 @@ $user['name'] ник пользователя
     <input type="text" name="username" value="<?=$user['name'];?>">
     <br><br>
     <label>Новый пароль: </label><br>
-    <input type="password" name="password" value="">
+    <input type="password" name="password">
     <br><br>
     <label>Повторите пароль: </label><br>
-    <input type="password" name="confirm" value="">
+    <input type="password" name="confirm">
     <br><br>
     <input type="submit" value="Сохранить">
     <br><br>

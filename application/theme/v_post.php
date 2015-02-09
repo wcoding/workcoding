@@ -34,7 +34,7 @@ $comment['message'] - комментарий
     <b style="color: red;">Заполните все поля!</b>
 <? endif; ?>
 
-<form method="post" action="index.php?act=comments">
+<form method="post" action="<?=BASEURL,'article/comments'?>">
     <label class="star">Привет! Как зовут тебя дружище? </label>
     <br>
     <input type="text" name="name" value="">

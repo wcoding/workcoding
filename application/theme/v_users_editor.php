@@ -17,7 +17,7 @@ $user['description']  описание роли пользователя
     <tbody>
 <? foreach($users as $user): ?>
     <tr>
-        <td><a href="index.php?c=UsersEditor&act=edit&id=<?=$user['id_user']?>"><?=$user['username']?></a></td>
+        <td><a href="<?=BASEURL,'UsersEditor/edit/',$user['id_user']?>"><?=$user['username']?></a></td>
         <td><?=$user['login']?></td>
         <td><?=$user['description']?></td>
     </tr>

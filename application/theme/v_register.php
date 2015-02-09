@@ -11,7 +11,7 @@ $username - имя введённое пользователем
     <b style="color: red;">Ошибка! </b><i style="color: red;"><?=$message;?></i>
 <? endif; ?>
 <br><br>
-<form method="post" action="index.php?c=auth&act=register">
+<form method="post" action="<?=BASEURL,'auth/register'?>">
     <label class="star">E-mail: </label>
     <br>
     <input type="text" name="login" value="<?=$login;?>">

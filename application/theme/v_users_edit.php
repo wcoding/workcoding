@@ -11,7 +11,7 @@ $role['name'] название роли
 $role['id_role'] идентификатор роли
 */?>
 
-<p><a href="index.php?c=UsersEditor">Редактор пользователей</a></p>
+<p><a href="<?=BASEURL,'UsersEditor'?>">Редактор пользователей</a></p>
 
 <? if(isset($message)): ?>
     <br>
