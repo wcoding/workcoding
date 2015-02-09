@@ -3,11 +3,15 @@
 // Установить полный путь к корню сайта
 define('DOCROOT', realpath(__DIR__).DIRECTORY_SEPARATOR);
 
+$base_url = '/1.1/';
+
 // Название папки с приложением
 $application = 'application';
 
 // Название папки с файлами фреймворка
 $system = 'system';
+
+define('BASEURL', $base_url);
 
 if ( ! is_dir($application) AND is_dir(DOCROOT.$application))
     $application = DOCROOT.$application;
@@ -19,7 +23,7 @@ define('APPPATH', realpath($application).DIRECTORY_SEPARATOR);
 define('SYSPATH', realpath($system).DIRECTORY_SEPARATOR);
 
 // Удалить конфиг-е переменне
-unset($application, $system);
+unset($application, $system, $base_url);
 
 // Путь до вьюшек
 define('VIEW', APPPATH.'theme'.DIRECTORY_SEPARATOR);
