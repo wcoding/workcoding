@@ -19,8 +19,7 @@ class C_CommentsEditor extends C_BaseAdmin
         // Проверить право на работу с комментариями
         if ( ! $this->mUsers->Can('USE_EDIT_COMMENTS'))
         {
-            header('Location: index.php?c=editor');
-            exit;
+            $this->Redirect('/editor');
         }
     }
 

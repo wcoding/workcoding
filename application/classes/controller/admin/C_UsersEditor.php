@@ -14,8 +14,7 @@ class C_UsersEditor extends C_BaseAdmin
         // Проверить право доступа к менеджеру пользователей
         if ( ! $this->mUsers->Can('USE_EDIT_ADD_USERS') )
         {
-            header('Location: index.php?c=editor');
-            exit;
+            $this->Redirect('/editor');
         }
     }
 
@@ -47,22 +46,22 @@ class C_UsersEditor extends C_BaseAdmin
             // Если валидация полей формы прошла успешно и данные сохранены
             if( FALSE !== $this->mUsers->Edit($_POST['userID'], $_POST['username'], $_POST['role']) ){
 
-                header("Location: index.php?c=UsersEditor&act=edit&id={$_POST['userID']}");
-                exit;
+                $this->Redirect('/UsersEditor/edit/'.$_POST['userID']);
             }
             else{
                 $message = 'Все поля должны быть заполнены.';
-                $user = $this->mUsers->Get($_GET['id']);
+                $user = $this->mUsers->Get($this->params[0]);
             }
         }
-        // Только пришли
-        elseif( isset($_GET['id']) and $_GET['id'] != '' ){
+        // Если параметр id_user передан в URL
+        elseif( isset($this->params[0]) and $this->params[0] != '' ){
 
             // Запросить в базе, данные пользователя
-            $user = $this->mUsers->Get($_GET['id']);
+            $user = $this->mUsers->Get($this->params[0]);
 
             // Если был передан id несуществующего пользователя
-            if( 1 > count($this->mUsers->Get($_GET['id'])) ){
+            if( 1 > count($this->mUsers->Get($this->params[0])) ){
+
                 $this->NotFound();
             }
         }

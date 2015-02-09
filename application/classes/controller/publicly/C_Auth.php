@@ -20,8 +20,7 @@ class C_Auth extends C_BasePublicly
             // Если авторизация произошла, перенаправить на страницу профиля
             if ( $this->mUsers->Login( $_POST['login'], $_POST['password'], isset($_POST['remember']) ) )
             {
-                header('Location: index.php?c=profile');
-                exit;
+                $this->Redirect('/profile');
             }
 
             $error = true;
@@ -43,8 +42,7 @@ class C_Auth extends C_BasePublicly
     public function action_logout()
     {
         $this->mUsers->Logout();
-        header('Location: index.php');
-        exit;
+        $this->Redirect();
     }
 
 
@@ -61,7 +59,7 @@ class C_Auth extends C_BasePublicly
             if($_POST['password'] == $_POST['confirm']){
 
                 // зарегистрировать пользователя
-                $result = $this->mUsers->add($_POST['login'], $_POST['password'], $_POST['username'], 5);
+                $result = $this->mUsers->Add($_POST['login'], $_POST['password'], $_POST['username'], 5);
 
                 // Проверить, какой результат
                 if ( is_integer($result) ){
@@ -71,8 +69,7 @@ class C_Auth extends C_BasePublicly
 
                         // авторизовать пользователя и отправить в профиль
                         $this->mUsers->Login( $_POST['login'], $_POST['password']);
-                        header('Location: index.php?c=profile');
-                        exit;
+                        $this->Redirect('/profile');
                     }
 
                     $message = 'Такой пользователь уже существует.';

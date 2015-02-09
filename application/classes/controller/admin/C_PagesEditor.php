@@ -13,8 +13,7 @@ class C_PagesEditor extends C_BaseAdmin
         // Проверить право на добавление - редактирование страниц сайта
         if ( ! $this->mUsers->Can('USE_ADD_EDIT_PAGES'))
         {
-            header('Location: index.php?c=editor');
-            exit;
+            $this->Redirect('/editor');
         }
     }
 

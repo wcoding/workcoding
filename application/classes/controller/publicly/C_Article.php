@@ -1,6 +1,6 @@
 <?php defined('SYSPATH') OR die('No direct script access.');
 /**
- * Конттроллер вывода статей для публичной части сайта.
+ * Контроллер вывода статей для публичной части сайта.
  */
 class C_Article extends C_BasePublicly
 {
@@ -20,10 +20,11 @@ class C_Article extends C_BasePublicly
      */
     public function action_index()
     {
-        if(isset($_GET['id'])){
+        // Если параметры переданы через URL
+        if(isset($this->params[0])){
 
             // Извлечение статьи.
-            $article = $this->mArticle->get($_GET['id']);
+            $article = $this->mArticle->Get($this->params[0]);
 
             // если в базе нет такой статьи
             if(!is_array($article)){
@@ -31,7 +32,7 @@ class C_Article extends C_BasePublicly
             }
 
             // Получить комментарии к статье
-            $comments = $this->mComments->get($_GET['id']);
+            $comments = $this->mComments->Get($this->params[0]);
         }
         else{
             $this->NotFound();
@@ -41,7 +42,7 @@ class C_Article extends C_BasePublicly
         $this->title .= ' :: '.$article['title'];
 
         // Флаг ошибки при комментировании
-        $error = isset($_GET['error']) ? true : false;
+        $error = isset($this->params[1]) ? true : false;
 
         // Подготовить внутренний шаблон страницы для передачи его в базовый шаблон
         $this->content = $this->GetHtml(
@@ -62,17 +63,14 @@ class C_Article extends C_BasePublicly
     {
 
         if($this->IsPost()){
+
             // если новый комментарий сохранён
-            if ( $this->mComments->add($_POST['id'], $_POST['name'], $_POST['message']) )
-            {
-                header("Location: index.php?c=article&id={$_POST['id']}");
-                exit;
-            }
+            if ( $this->mComments->Add($_POST['id'], $_POST['name'], $_POST['message']) )
+                $this->Redirect('/article/index/'.$_POST['id']);
+
             // если не все поля были заполнены
-            else{
-                header("Location: index.php?c=article&id={$_POST['id']}&error#comments");
-                exit;
-            }
+            else
+                $this->Redirect('/article/index/'.$_POST['id'].'/error#comments');
         }
 
         // если обратились к экшену напрямую

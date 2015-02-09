@@ -17,8 +17,7 @@ class C_ArticlesEditor extends C_BaseAdmin
         // Проверить право на работу со статьями
         if ( ! $this->mUsers->Can('USE_EDIT_ADD_ARTICLES'))
         {
-            header('Location: index.php?c=editor');
-            exit;
+            $this->Redirect('/editor');
         }
     }
 
@@ -51,8 +50,7 @@ class C_ArticlesEditor extends C_BaseAdmin
             // если новый пост сохранён
             if ( $this->mArticle->Add($_POST['title'], $_POST['content']) )
             {
-                header('Location: index.php?c=ArticlesEditor');
-                die();
+                $this->Redirect('/ArticlesEditor');
             }
 
             // запомнить введённые пользователем данные
@@ -98,8 +96,7 @@ class C_ArticlesEditor extends C_BaseAdmin
             // Если изменения сохранены
             if ( $this->mArticle->Edit($_POST['id'], $_POST['title'], $_POST['content']) )
             {
-                header('Location: index.php?c=ArticlesEditor');
-                die();
+                $this->Redirect('/ArticlesEditor');
             }
 
             // запомнить введённые пользователем данные
@@ -112,24 +109,22 @@ class C_ArticlesEditor extends C_BaseAdmin
             $error = true;
         }
         // Если только пришли.
-        elseif( isset($_GET['id']) )
+        elseif( isset($this->params[0]) )
         {
             // Если хотим удалить, удаляем
-            if( isset($_GET['delete']) )
+            if( isset($this->params[1]) )
             {
-                $this->mArticle->Delete($_GET['id']);
-                header('Location: index.php?c=ArticlesEditor');
-                exit;
+                $this->mArticle->Delete($this->params[0]);
+                $this->Redirect('/ArticlesEditor');
             }
 
             // вытащить статью из базы
-            $article = $this->mArticle->Get($_GET['id']);
+            $article = $this->mArticle->Get($this->params[0]);
 
             // если в базе нет такой статьи
             if( ! is_array($article) )
             {
-                header('Location: index.php?c=ArticlesEditor');
-                exit;
+                $this->Redirect('/ArticlesEditor');
             }
             // флаг вывода ошибок
             $error = false;
@@ -137,8 +132,7 @@ class C_ArticlesEditor extends C_BaseAdmin
         // Если ломятся без параметра.
         else
         {
-            header('Location: index.php?c=ArticlesEditor');
-            exit;
+            $this->Redirect('/ArticlesEditor');
         }
 
         // заголовок текущей страницы

@@ -16,15 +16,14 @@ abstract class C_BaseAdmin extends C_Base
         // Если пользователь не зарегистрирован - отправляем на страницу регистрации.
         if ($this->mUsers->Get() == null)
         {
-            header('Location: index.php?c=auth&act=login');
-            exit;
+            $this->Redirect('/auth/login');
         }
 
         // Простым пользователям нельзя в админку
         if ($this->mUsers->Can('USER'))
         {
-            header('Location: index.php');
-            exit;
+            // Редирект на главную страницу
+            $this->Redirect();
         }
 
         // Переопределить название сайта
