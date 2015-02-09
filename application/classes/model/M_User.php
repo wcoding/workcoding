@@ -74,11 +74,11 @@ class M_User
 			return false;
 				
 		// запоминаем имя и md5(пароль)
-		if ($remember)
+		if (FALSE !== $remember)
 		{
 			$expire = time() + 3600 * 24 * 100;
-			setcookie('login', $login, $expire);
-			setcookie('password', md5($password), $expire);
+			setcookie('login', $login, $expire, BASEURL);
+			setcookie('password', md5($password), $expire, BASEURL);
 		}
 
 		// открываем сессию и запоминаем SID
@@ -94,8 +94,8 @@ class M_User
      */
 	public function Logout()
 	{
-		setcookie('login', '', time() - 1);
-		setcookie('password', '', time() - 1);
+		setcookie('login', '', time() - 1, BASEURL);
+		setcookie('password', '', time() - 1, BASEURL);
 		unset($_COOKIE['login']);
 		unset($_COOKIE['password']);
 		unset($_SESSION['sid']);		
@@ -171,7 +171,7 @@ class M_User
 
 		// Если надо менять пароль
 		if ($password !== '')
-			$obj['password'] = md5($password);
+			$obj['password'] = md5($password.SALTPASS);
 		else
 			$obj['password'] = $user['password'];
 
