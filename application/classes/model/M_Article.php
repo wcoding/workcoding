@@ -143,7 +143,7 @@ class M_Article
 	 * @param	array	$article - это ассоциативный массив, представляющий статью
 	 * @return	string	
 	*/
-	function preview($article)
+	function Preview($article)
 	{
 		// убрать html
 		$str = strip_tags($article['content']);
