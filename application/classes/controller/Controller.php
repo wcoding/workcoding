@@ -4,6 +4,9 @@
 */
 abstract class Controller
 {
+	protected $params;// массив с параметрами - аналог $_GET
+
+
 	/**
 	 * Функция отрабатывающая до основного метода.
 	*/
@@ -21,9 +24,11 @@ abstract class Controller
 	 * который расширяет данный класс, Controller.
 	 *
 	 * @param string $action имя метода который должен отработать.
-	*/
-	public function Request($action)
+	 * @param array $params массив с параметрами - аналог $_GET
+	 */
+	public function Request($action, $params)
 	{
+		$this->params = $params;
 		$this->before();
 		$this->$action();
 		$this->render();
@@ -93,6 +98,22 @@ abstract class Controller
 	public function __call($name, $params)
 	{
 		$this->NotFound();
+	}
+
+
+	public function SetURI($uri)
+	{
+		if($uri[0] == '/')
+			$uri = BASEURL . substr($uri, 1);
+
+		return $uri;
+	}
+
+
+	protected function Redirect($url = '/')
+	{
+		header("location: {$this->SetURI($url)}");
+		exit();
 	}
 
 }
