@@ -21,14 +21,12 @@ class C_UserPanel extends C_BasePublicly
 
         // Если пользователь не зарегистрирован - отправляем на страницу регистрации.
         if ($this->mUsers->Get() == null) {
-            header('Location: index.php?c=auth&act=login');
-            exit;
+            $this->Redirect('/auth/login');
         }
 
         // Если пользователь получил ban, дать отлуп
         if ($this->mUsers->Can('NO_ACCESS')) {
-            header('Location: index.php?c=auth&act=logout');
-            exit;
+            $this->Redirect('/auth/logout');
         }
 
         $this->can = false;
@@ -57,8 +55,7 @@ class C_UserPanel extends C_BasePublicly
 
                 // Если неудача, значит на данный момент пользователь уже не авторизован
                 if ( FALSE === $result ){
-                    header('Location: index.php?c=auth&act=login');
-                    exit;
+                    $this->Redirect('/auth/login');
                 }
             }
             else{
