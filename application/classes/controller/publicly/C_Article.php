@@ -2,7 +2,7 @@
 /**
  * Конттроллер вывода статей для публичной части сайта.
  */
-class C_Articles extends C_BasePublicly
+class C_Article extends C_BasePublicly
 {
     private $mArticle;// экземпляр класса модели статей
     private $mComments;// экземпляр класса модели комментариев к статье
@@ -16,31 +16,9 @@ class C_Articles extends C_BasePublicly
 
 
     /**
-     * Экшн списка статей, на главной странице.
+     * Экшн чтения статьи.
      */
     public function action_index()
-    {
-
-        // Вытащить все статьи.
-        $articles = $this->mArticle->all();
-
-        // Добавить краткое описание к каждой статье
-        foreach($articles as $key => $article){
-            $articles[$key]['intro'] = $this->mArticle->preview($article);
-        }
-
-        // Название страницы
-        $this->title .= ' :: Главная';
-
-        // Подготовить внутренний шаблон страницы для передачи его в базовый шаблон
-        $this->content = $this->GetHtml('v_index.php', array('articles' => $articles));
-    }
-
-
-    /**
-     * Экшн чтения одной конкретной статьи.
-     */
-    public function action_post()
     {
         if(isset($_GET['id'])){
 
@@ -87,12 +65,12 @@ class C_Articles extends C_BasePublicly
             // если новый комментарий сохранён
             if ( $this->mComments->add($_POST['id'], $_POST['name'], $_POST['message']) )
             {
-                header("Location: index.php?act=post&id={$_POST['id']}");
+                header("Location: index.php?c=article&id={$_POST['id']}");
                 exit;
             }
             // если не все поля были заполнены
             else{
-                header("Location: index.php?act=post&id={$_POST['id']}&error#comments");
+                header("Location: index.php?c=article&id={$_POST['id']}&error#comments");
                 exit;
             }
         }
