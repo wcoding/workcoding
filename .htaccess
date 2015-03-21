@@ -5,7 +5,7 @@ php_flag magic_quotes_runtime 0
 
 RewriteEngine On
 
-RewriteBase /1.1
+RewriteBase /
 
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
