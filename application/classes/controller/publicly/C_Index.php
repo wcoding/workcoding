@@ -8,8 +8,13 @@ class C_Index extends C_BasePublicly
     private $mArticle;// экземпляр класса модели статей
 
 
-    function __construct()
+    /**
+     * Метод подготавливает данные, которые будут использоваться
+     * в методе action_*
+     */
+    protected function before()
     {
+        parent::before();
         $this->mArticle = M_Article::Instance();
     }
 
