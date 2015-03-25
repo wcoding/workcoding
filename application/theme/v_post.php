@@ -5,13 +5,15 @@ $article['title'] - заголовок
 $article['content'] - содержание
 $comment['name'] - имя комментатора
 $comment['message'] - комментарий
+$user - массив данных о пользователе
+($user !== null) - пользователь авторизирован
 */?>
 
 <h1><?=$article['title']?></h1>
 <div><?=$article['content']?></div>
 
 <hr>
-<h4>Ваши комментарии.</h4>
+<h4>Комментарии.</h4>
 <hr>
 
 <? if( count($comments) > 0 ): ?>
@@ -30,15 +32,13 @@ $comment['message'] - комментарий
 
 <a name="comments"></a>
 
+<? if( null !== $user ): ?>
+
 <? if($error): ?>
     <b style="color: red;">Заполните все поля!</b>
 <? endif; ?>
 
 <form method="post" action="<?=BASEURL,'article/comments'?>">
-    <label class="star">Привет! Как зовут тебя дружище? </label>
-    <br>
-    <input type="text" name="name" value="">
-    <br><br>
     <label class="star">Напиши, что думаешь? </label><br>
     <textarea name="message"></textarea>
     <input type="hidden" name="id" value="<?=$article['id_article']?>">
@@ -46,3 +46,9 @@ $comment['message'] - комментарий
     <input type="submit" value="Опубликовать">
     <br><br>
 </form>
+
+<? else: ?>
+
+<b style="color: green;"><a href="<?=BASEURL,'auth/login'?>">Войти</a>, чтобы оставить комментарий.</b>
+
+<? endif; ?>
