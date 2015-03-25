@@ -5,8 +5,8 @@
 
 class M_Comment
 {
-    private static $instance; 	// ссылка на экземпляр класса
-    private $dbase; 			// драйвер БД
+    private static $instance;// ссылка на экземпляр класса
+    private $dbase;// драйвер БД
 
 
     /**
@@ -34,15 +34,17 @@ class M_Comment
     /**
      *  Получить комментарии к статье.
      *
-     * @param	int		$id_article идентификатор статьи
+     * @param	int	$id_article идентификатор статьи
      * @return	array	ассоциативный массив комментариев
      */
     public function Get($id_article)
     {
         // Запрос.
-        $t = "SELECT *
-			  FROM comments
-			  WHERE article_id = '%d'";
+        $t = "SELECT comments.message, users.name
+            FROM comments
+            JOIN users
+            ON users.id_user = comments.user_id
+            WHERE comments.article_id = '%d'";
 
         $query = sprintf($t, $id_article);
 
@@ -53,25 +55,24 @@ class M_Comment
     /**
      *  Добавить комментарий.
      *
-     * @param	int		$id_article идентификатор статьи
-     * @param	string	$name   имя комментатора
+     * @param	int	$id_article идентификатор статьи
+     * @param	int	$user_id   id комментатора
      * @param	string	$message    текст комментария
      * @return	mixed	идентификатор нового комментария иначе false
-     */
-    public function Add($id_article, $name, $message)
+    */
+    public function Add($id_article, $user_id, $message)
     {
         // Подготовка.
-        $name = trim($name);
         $message = trim($message);
 
         // Проверка.
-        if ($name == '' or $message == '')
+        if ($message == '')
             return false;
 
         // Запрос.
         $obj = array();
         $obj['article_id'] = $id_article;
-        $obj['name'] = $name;
+        $obj['user_id'] = $user_id;
         $obj['message'] = $message;
 
         return $this->dbase->Insert('comments', $obj);
