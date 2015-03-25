@@ -3,7 +3,7 @@
 // Установить полный путь к корню сайта
 define('DOCROOT', realpath(__DIR__).DIRECTORY_SEPARATOR);
 
-$base_url = '/1.1/';
+$base_url = '/';
 
 // Название папки с приложением
 $application = 'application';
