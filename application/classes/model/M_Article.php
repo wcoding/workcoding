@@ -14,10 +14,11 @@ class M_Article
 	 *
 	 * @return M_Article
      */
-	public static function Instance()
+	public static function instance()
 	{
-		if (self::$instance == null)
+		if (self::$instance == null) {
 			self::$instance = new M_Article();
+        }
 
 		return self::$instance;
 	}
@@ -27,7 +28,7 @@ class M_Article
 	{
 		// Создать объект для работы с базой данных
 		// и установить соединение
-		$this->dbase = MySQLDriver::Instance();
+		$this->dbase = MySQLDriver::instance();
 	}
 
 
@@ -36,13 +37,13 @@ class M_Article
 	 * 
 	 * @return array ассоциативный массив
 	*/
-	public function All()
+	public function all()
 	{
 		$query = "SELECT *
 				  FROM articles
 				  ORDER BY id_article DESC";
 
-		return $this->dbase->Select($query);
+		return $this->dbase->select($query);
 	}
 
 
@@ -52,7 +53,7 @@ class M_Article
 	 * @param	int		$id_article		- идентификатор статьи
 	 * @return	array	ассоциативный массив выбраной статьи
 	*/
-	public function Get($id_article)
+	public function get($id_article)
 	{
 		// Запрос.
 		$t = "SELECT *
@@ -60,7 +61,7 @@ class M_Article
 			  WHERE id_article = '%d'";
 
 		$query = sprintf($t, $id_article);
-		$result = $this->dbase->Select($query);
+		$result = $this->dbase->select($query);
 		return $result[0];
 	}
 
@@ -72,22 +73,23 @@ class M_Article
 	 * @param	string	$content	- контент статьи
 	 * @return	mixed	идентификатор новой статьи иначе false
 	*/
-	public function Add($title, $content)
+	public function add($title, $content)
 	{
 		// Подготовка.
 		$title = trim($title);
 		$content = trim($content);
 
 		// Проверка.
-		if ($title == '')
+		if ($title == '') {
 			return false;
+        }
 
 		// Запрос.
 		$obj = array();
 		$obj['title'] = $title;
 		$obj['content'] = $content;
 
-		return $this->dbase->Insert('articles', $obj);
+		return $this->dbase->insert('articles', $obj);
 	}
 
 
@@ -99,15 +101,16 @@ class M_Article
 	 * @param	string	$content	- контент статьи
 	 * @return	mixed	количество обновлённых строк иначе false
 	*/
-	public function Edit($id_article, $title, $content)
+	public function edit($id_article, $title, $content)
 	{
 		// Подготовка.
 		$title = trim($title);
 		$content = trim($content);
 
 		// Проверка.
-		if ($title == '')
+		if ($title == '') {
 			return false;
+        }
 
 		// Запрос.
 		$obj = array();
@@ -117,7 +120,7 @@ class M_Article
 		$t = "id_article = '%d'";
 		$where = sprintf($t, $id_article);
 
-		return $this->dbase->Update('articles', $obj, $where);
+		return $this->dbase->update('articles', $obj, $where);
 	}
 
 
@@ -127,13 +130,13 @@ class M_Article
 	 * @param	int		$id_article	- идентификатор статьи
 	 * @return	int					- если больше нуля, то удалил
 	*/
-	public function Delete($id_article)
+	public function delete($id_article)
 	{
 		// Запрос.
 		$t = "id_article = '%d'";
 		$where = sprintf($t, $id_article);
 
-		return $this->dbase->Delete('articles', $where);
+		return $this->dbase->delete('articles', $where);
 	}
 
 
@@ -143,13 +146,11 @@ class M_Article
 	 * @param	array	$article - это ассоциативный массив, представляющий статью
 	 * @return	string	
 	*/
-	function Preview($article)
+	function preview($article)
 	{
 		// убрать html
 		$str = strip_tags($article['content']);
 		// если, получившаяся строка больше 200 знаков, обрезать и добавить многоточие
 		return (mb_strlen($str) > 200) ? mb_substr($str, 0, 200).'..' : $str;
 	}
-
-
 }

@@ -14,11 +14,12 @@ class MySQLDriver implements DataBaseDriver
 	 *
 	 * @return MySQLDriver
 	 */
-	public static function Instance()
+	public static function instance()
 	{
 		// Создать, если экземпляр класса MySQLDriver, ещё не был создан
-		if (self::$instance == null)
+		if (self::$instance == null) {
 			self::$instance = new MySQLDriver();
+        }
 		
 		return self::$instance;
 	}
@@ -30,7 +31,7 @@ class MySQLDriver implements DataBaseDriver
 	private function __construct()
 	{
 		// получить массив из конфига(/application/config/database.php)
-		$config = Core::GetConfig('database');
+		$config = Core::getConfig('database');
 
 		// Подключение к СУБД.
 		$connect = mysql_connect(
@@ -53,18 +54,18 @@ class MySQLDriver implements DataBaseDriver
 	 * @param string $query полный текст SQL запроса
 	 * @return array ассоциативный массив выбранных объектов
      */
-	public function Select($query)
+	public function select($query)
 	{
 		$result = mysql_query($query);
 		
-		if (!$result)
+		if (! $result) {
 			die(mysql_error());
+        }
 		
 		$n = mysql_num_rows($result);
 		$arr = array();
 	
-		for($i = 0; $i < $n; $i++)
-		{
+		for ($i = 0; $i < $n; $i++) {
 			$row = mysql_fetch_assoc($result);		
 			$arr[$i] = $row;
 		}
@@ -82,22 +83,18 @@ class MySQLDriver implements DataBaseDriver
 	 * @param array $object ассоциативный массив с парами вида "имя столбца - значение"
 	 * @return int идентификатор новой строки
      */
-	public function Insert($table, $object)
+	public function insert($table, $object)
 	{			
 		$columns = array(); 
 		$values = array(); 
 	
-		foreach ($object as $key => $value)
-		{
+		foreach ($object as $key => $value) {
 			$key = mysql_real_escape_string($key . '');
 			$columns[] = $key;
 			
-			if ($value === null)
-			{
+			if ($value === null) {
 				$values[] = 'NULL';
-			}
-			else
-			{
+			} else {
 				$value = mysql_real_escape_string($value . '');							
 				$values[] = "'$value'";
 			}
@@ -109,8 +106,9 @@ class MySQLDriver implements DataBaseDriver
 		$query = "INSERT INTO $table ($columns_s) VALUES ($values_s)";
 		$result = mysql_query($query);
 								
-		if (!$result)
+		if (! $result) {
 			die(mysql_error());
+        }
 			
 		return mysql_insert_id();
 	}
@@ -126,20 +124,16 @@ class MySQLDriver implements DataBaseDriver
 	 * @param string $where условие (часть SQL запроса)
 	 * @return int число измененных строк
      */
-	public function Update($table, $object, $where)
+	public function update($table, $object, $where)
 	{
 		$sets = array();
 	
-		foreach ($object as $key => $value)
-		{
+		foreach ($object as $key => $value) {
 			$key = mysql_real_escape_string($key . '');
 			
-			if ($value === null)
-			{
+			if ($value === null) {
 				$sets[] = "$value=NULL";			
-			}
-			else
-			{
+			} else {
 				$value = mysql_real_escape_string($value . '');					
 				$sets[] = "$key='$value'";			
 			}			
@@ -149,10 +143,11 @@ class MySQLDriver implements DataBaseDriver
 		$query = "UPDATE $table SET $sets_s WHERE $where";
 		$result = mysql_query($query);
 		
-		if (!$result)
+		if (! $result) {
 			die(mysql_error());
+        }
 
-		return mysql_affected_rows();	
+		return mysql_affected_rows();
 	}
 
 
@@ -163,14 +158,15 @@ class MySQLDriver implements DataBaseDriver
 	 * @param string $where условие (часть SQL запроса)
 	 * @return int число удаленных строк
      */
-	public function Delete($table, $where)
+	public function delete($table, $where)
 	{
 		$query = "DELETE FROM $table WHERE $where";		
 		$result = mysql_query($query);
 						
-		if (!$result)
+		if (! $result) {
 			die(mysql_error());
+        }
 
-		return mysql_affected_rows();	
+		return mysql_affected_rows();
 	}
 }

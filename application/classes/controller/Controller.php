@@ -26,7 +26,7 @@ abstract class Controller
 	 * @param string $action имя метода который должен отработать.
 	 * @param array $params массив с параметрами - аналог $_GET
 	 */
-	public function Request($action, $params)
+	public function request($action, $params)
 	{
 		$this->params = $params;
 		$this->before();
@@ -38,7 +38,7 @@ abstract class Controller
 	/**
 	 * Запрос произведен методом GET?
 	*/
-	protected function IsGet()
+	protected function isGet()
 	{
 		return $_SERVER['REQUEST_METHOD'] == 'GET';
 	}
@@ -47,7 +47,7 @@ abstract class Controller
 	/**
 	 * Запрос произведен методом POST?
 	*/
-	protected function IsPost()
+	protected function isPost()
 	{
 		return $_SERVER['REQUEST_METHOD'] == 'POST';
 	}
@@ -60,11 +60,10 @@ abstract class Controller
 	 * @param	array	$vars	массив ['varName' => $value], где ключ это имя переменной в шаблоне.
 	 * @return	string	
 	*/
-	protected function GetHtml($fileName, $vars = array())
+	protected function getHtml($fileName, $vars = array())
 	{
 		// Установить переменные и их значения, для шаблона.
-		foreach ($vars as $varName => $value)
-		{
+		foreach ($vars as $varName => $value) {
 			$$varName = $value;
 		}
 		
@@ -73,7 +72,7 @@ abstract class Controller
 		
 		// Передать в шаблон переменные, 
 		// которые были установленны
-		include VIEW.$fileName; 
+		include VIEW . $fileName; 
 		
 		// Отдать готовый HTML
 		return ob_get_clean();
@@ -84,10 +83,10 @@ abstract class Controller
 	 * Метод генерирует ответ сервера о том,
 	 * что, запрошеваемая страница, не существует.
 	 */
-	public function NotFound()
+	public function notFound()
 	{
 		header("HTTP/1.0 404 Not Found");
-		include(VIEW.'404.php');
+		include(VIEW . '404.php');
 		exit;
 	}
 	
@@ -97,23 +96,23 @@ abstract class Controller
 	*/
 	public function __call($name, $params)
 	{
-		$this->NotFound();
+		$this->notFound();
 	}
 
 
-	public function SetURI($uri)
+	public function setURI($uri)
 	{
-		if($uri[0] == '/')
+		if($uri[0] == '/') {
 			$uri = BASEURL . substr($uri, 1);
+        }
 
 		return $uri;
 	}
 
 
-	protected function Redirect($url = '/')
+	protected function redirect($url = '/')
 	{
 		header("location: {$this->SetURI($url)}");
-		exit();
+		exit;
 	}
-
 }

@@ -5,5 +5,5 @@ return array(
     'username' => 'root',
     'password' => '',
     'database' => 'school',
-    'charset'  => 'utf8',
+    'charset'  => 'utf8'
 );

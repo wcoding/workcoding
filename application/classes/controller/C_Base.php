@@ -11,7 +11,7 @@ abstract class C_Base extends Controller
 
 	function __construct()
 	{
-		$this->mUsers = M_User::Instance();
+		$this->mUsers = M_User::instance();
 	}
 
 
@@ -22,7 +22,7 @@ abstract class C_Base extends Controller
 	protected function before()
 	{
 		// Очистка старых сессий.
-		$this->mUsers->ClearSessions();
+		$this->mUsers->clearSessions();
 
 		$this->title = '';
 		$this->content = '';
@@ -37,7 +37,7 @@ abstract class C_Base extends Controller
 	public function render()
 	{
 		$vars = array('title' => $this->title, 'content' => $this->content);	
-		$page = $this->GetHtml('v_base_publicly.php', $vars);
+		$page = $this->getHtml('v_base_publicly.php', $vars);
 		echo $page;
 	}	
 }

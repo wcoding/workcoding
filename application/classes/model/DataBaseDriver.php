@@ -2,16 +2,15 @@
 /**
  * Интерфейс работы с базой данных
  */
-
-interface DataBaseDriver {
-
+interface DataBaseDriver
+{
     /**
      * Выборка строк
      *
      * @param string $query полный текст SQL запроса
      * @return array массив выбранных объектов
      */
-    public function Select($query);
+    public function select($query);
 
 
     /**
@@ -21,7 +20,7 @@ interface DataBaseDriver {
      * @param array $object ассоциативный массив с парами вида "имя столбца - значение"
      * @return int идентификатор новой строки
      */
-    public function Insert($table, $object);
+    public function insert($table, $object);
 
 
     /**
@@ -32,7 +31,7 @@ interface DataBaseDriver {
      * @param string $where условие (часть SQL запроса)
      * @return int число измененных строк
      */
-    public function Update($table, $object, $where);
+    public function update($table, $object, $where);
 
 
     /**
@@ -42,5 +41,5 @@ interface DataBaseDriver {
      * @param string $where условие (часть SQL запроса)
      * @return int число удаленных строк
      */
-    public function Delete($table, $where);
+    public function delete($table, $where);
 }

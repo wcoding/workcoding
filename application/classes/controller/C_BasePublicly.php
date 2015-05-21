@@ -11,6 +11,6 @@ abstract class C_BasePublicly extends C_Base
     protected function before()
     {
         // Название публичной части сайта
-        $this->title = Core::GetConfig('settings', 'siteName');
+        $this->title = Core::getConfig('settings', 'siteName');
     }
 }

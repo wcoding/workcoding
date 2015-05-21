@@ -14,10 +14,11 @@ class M_Comment
      *
      * @return M_Comment
      */
-    public static function Instance()
+    public static function instance()
     {
-        if (self::$instance == null)
+        if (self::$instance == null) {
             self::$instance = new M_Comment();
+        }
 
         return self::$instance;
     }
@@ -27,7 +28,7 @@ class M_Comment
     {
         // Создать объект для работы с базой данных
         // и установить соединение
-        $this->dbase = MySQLDriver::Instance();
+        $this->dbase = MySQLDriver::instance();
     }
 
 
@@ -37,7 +38,7 @@ class M_Comment
      * @param	int	$id_article идентификатор статьи
      * @return	array	ассоциативный массив комментариев
      */
-    public function Get($id_article)
+    public function get($id_article)
     {
         // Запрос.
         $t = "SELECT comments.message, users.name
@@ -48,26 +49,27 @@ class M_Comment
 
         $query = sprintf($t, $id_article);
 
-        return $this->dbase->Select($query);
+        return $this->dbase->select($query);
     }
 
 
     /**
      *  Добавить комментарий.
      *
-     * @param	int	$id_article идентификатор статьи
-     * @param	int	$user_id   id комментатора
-     * @param	string	$message    текст комментария
-     * @return	mixed	идентификатор нового комментария иначе false
+     * @param	int	$id_article  идентификатор статьи
+     * @param	int	$user_id  id комментатора
+     * @param	string $message  текст комментария
+     * @return	bool|int  идентификатор нового комментария иначе false
     */
-    public function Add($id_article, $user_id, $message)
+    public function add($id_article, $user_id, $message)
     {
         // Подготовка.
         $message = trim($message);
 
         // Проверка.
-        if ($message == '')
+        if ($message == '') {
             return false;
+        }
 
         // Запрос.
         $obj = array();
@@ -75,7 +77,7 @@ class M_Comment
         $obj['user_id'] = $user_id;
         $obj['message'] = $message;
 
-        return $this->dbase->Insert('comments', $obj);
+        return $this->dbase->insert('comments', $obj);
     }
 
 }

@@ -1,8 +1,7 @@
-<?php
+<?php defined('SYSPATH') OR die('No direct script access.');
 /**
  * Контроллер главной страницы администрирования сайта
  */
-
 class C_AdminPanel extends C_BaseAdmin
 {
     /**
@@ -14,7 +13,6 @@ class C_AdminPanel extends C_BaseAdmin
         $this->title .= ' :: Главная';
 
         // Подготовить внутренний шаблон страницы для передачи его в базовый шаблон
-        $this->content = $this->GetHtml( 'v_admin_panel.php' );
+        $this->content = $this->getHtml( 'v_admin_panel.php' );
     }
-
 }

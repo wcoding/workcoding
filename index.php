@@ -1,5 +1,4 @@
 <?php
-
 /*  | E_STRICT, & ~E_NOTICE & ~E_DEPRECATED  */
 error_reporting(E_ALL & ~E_NOTICE & ~E_DEPRECATED);
 
@@ -11,27 +10,26 @@ include_once('path.const.php');
 require APPPATH . 'startup.php';
 
 // Префикс методов класса, из конфига
-$action = Core::GetConfig('settings', 'actionPrefix');
+$action = Core::getConfig('settings', 'actionPrefix');
 
 $info = explode('/', $_GET['q']);
 $params = array();
 
-for ($i=0; $i <= count($info); $i++)
-{
-	if ($info[$i] != ''){
+for ($i=0; $i <= count($info); $i++) {
+    if ($info[$i] != '') {
 
-		if($i == 0){
-			$params['controller'] = $info[$i];
-			continue;
-		}
+        if ($i == 0) {
+            $params['controller'] = $info[$i];
+            continue;
+        }
 
-		if($i == 1){
-			$params['action'] = $info[$i];
-			continue;
-		}
+        if ($i == 1) {
+            $params['action'] = $info[$i];
+            continue;
+        }
 
-		$params[] = $info[$i];
-	}
+        $params[] = $info[$i];
+    }
 }
 
 // Получить название метода класса из URL
@@ -44,43 +42,42 @@ $c = isset($params['controller']) ? $params['controller'] : '' ;
 // При попытке создать экземпляр класса
 // срабатывает Core::auto_load() и инклюдит файл,
 // с именем такимже, как имя класса.
-switch ($c)
-{
-	case 'editor':
-		$controller = new C_AdminPanel;
-		break;
-	case 'ArticlesEditor':
-		$controller = new C_ArticlesEditor;
-		break;
-	case 'CommentsEditor':
-		$controller = new C_CommentsEditor;
-		break;
-	case 'UsersEditor':
-		$controller = new C_UsersEditor;
-		break;
-	case 'PagesEditor':
-		$controller = new C_PagesEditor;
-		break;
-	case 'auth':
-		$controller = new C_Auth;
-		break;
-	case 'profile':
-		$controller = new C_UserPanel;
-		break;
-	case 'article':
-		$controller = new C_Article;
-		break;
-	case 'page':
-		$controller = new C_Pages;
-		break;
-	case '':
-		$controller = new C_Index;
-		break;
-	default:
-		// От бесконечных дублей главной страницы
-		header("HTTP/1.0 404 Not Found");
-		include(VIEW.'404.php');
-		exit;
+switch ($c) {
+    case 'editor':
+        $controller = new C_AdminPanel;
+        break;
+    case 'ArticlesEditor':
+        $controller = new C_ArticlesEditor;
+        break;
+    case 'CommentsEditor':
+        $controller = new C_CommentsEditor;
+        break;
+    case 'UsersEditor':
+        $controller = new C_UsersEditor;
+        break;
+    case 'PagesEditor':
+        $controller = new C_PagesEditor;
+        break;
+    case 'auth':
+        $controller = new C_Auth;
+        break;
+    case 'profile':
+        $controller = new C_UserPanel;
+        break;
+    case 'article':
+        $controller = new C_Article;
+        break;
+    case 'page':
+        $controller = new C_Pages;
+        break;
+    case '':
+        $controller = new C_Index;
+        break;
+    default:
+        // От бесконечных дублей главной страницы
+        header("HTTP/1.0 404 Not Found");
+        include(VIEW.'404.php');
+        exit;
 }
 
 // Передать имя метода, который должен отработать у класса

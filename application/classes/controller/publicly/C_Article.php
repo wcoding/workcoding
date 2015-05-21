@@ -15,8 +15,8 @@ class C_Article extends C_BasePublicly
     protected function before()
     {
         parent::before();
-        $this->mArticle = M_Article::Instance();
-        $this->mComments = M_Comment::Instance();
+        $this->mArticle = M_Article::instance();
+        $this->mComments = M_Comment::instance();
     }
 
 
@@ -26,36 +26,36 @@ class C_Article extends C_BasePublicly
     public function action_index()
     {
         // Если параметры переданы через URL
-        if(isset($this->params[0])) {
+        if (isset($this->params[0])) {
 
             // Извлечение статьи.
             $article = $this->mArticle->Get($this->params[0]);
 
             // если в базе нет такой статьи
-            if(!is_array($article)) {
-                $this->NotFound();
+            if (! is_array($article)) {
+                $this->notFound();
             }
 
             // Получить комментарии к статье
-            $comments = $this->mComments->Get($this->params[0]);
+            $comments = $this->mComments->get($this->params[0]);
         } else {
-            $this->NotFound();
+            $this->notFound();
         }
 
         // Название страницы
-        $this->title .= ' :: '.$article['title'];
+        $this->title .= ' :: ' . $article['title'];
 
         // Флаг ошибки при комментировании
         $error = isset($this->params[1]) ? true : false;
 
         // Подготовить внутренний шаблон страницы для передачи его в базовый шаблон
-        $this->content = $this->GetHtml(
+        $this->content = $this->getHtml(
             'v_post.php',
             array(
                 'article' => $article, // ассоциативный массив выбраной статьи
                 'comments' => $comments, // ассоциативный массив комментариев к статье
                 'error' => $error, // флаг ошибки при комментировании
-                'user' => $this->mUsers->Get()
+                'user' => $this->mUsers->get()
             )
         );
     }
@@ -66,22 +66,22 @@ class C_Article extends C_BasePublicly
      */
     public function action_comments()
     {
-
-        if($this->IsPost() and null !== $this->mUsers->Get()) {
+        if ($this->isPost() and null !== $this->mUsers->get()) {
+            $add = $this->mComments->add(
+                $_POST['id'],
+                $this->mUsers->get()['id_user'],
+                Core::textOnly($_POST['message'])
+            );
             
-            if ( $this->mComments->Add($_POST['id'],
-                 $this->mUsers->Get()['id_user'],
-                 Core::TextOnly($_POST['message'])) ) {
-                
+            if ($add) {
                 // если новый комментарий сохранён
-                $this->Redirect('/article/index/'.$_POST['id']);
-                
+                $this->redirect('/article/index/' . $_POST['id']);            
             } else {
-                $this->Redirect('/article/index/'.$_POST['id'].'/error#comments');
+                $this->redirect('/article/index/' . $_POST['id'] . '/error#comments');
             }
         }
-
+        
         // если обратились к экшену напрямую
-        $this->NotFound();
+        $this->notFound();
     }
 }

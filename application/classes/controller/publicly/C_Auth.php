@@ -2,38 +2,36 @@
 /**
  * Контроллер авторизации
  */
-
 class C_Auth extends C_BasePublicly
 {
-
     /**
      * Авторизация пользователя
      */
     public function action_login()
     {
         // Флаг ошибки
-        $error = false;
+        $auth = false;
 
         // Если пользователь нажал кнопку "Войти"
-        if($this->IsPost()){
-
+        if ($this->isPost()) {
+            $auth = $this->mUsers->login(
+                $_POST['login'], 
+                $_POST['password'], 
+                isset($_POST['remember'])
+            );
+            
             // Если авторизация произошла, перенаправить на страницу профиля
-            if ( $this->mUsers->Login( $_POST['login'], $_POST['password'], isset($_POST['remember']) ) )
-            {
-                $this->Redirect('/profile');
+            if (true === $auth) {
+                $this->redirect('/profile');
             }
-
-            $error = true;
         }
-
 
         // Название страницы
         $this->title .= ' :: Авторизация';
 
         // Подготовить внутренний шаблон страницы для передачи его в базовый шаблон
-        $this->content = $this->GetHtml('v_login.php', array('error' => $error) );
+        $this->content = $this->getHtml('v_login.php', array('error' => $auth));
     }
-
 
 
     /**
@@ -41,10 +39,9 @@ class C_Auth extends C_BasePublicly
      */
     public function action_logout()
     {
-        $this->mUsers->Logout();
-        $this->Redirect();
+        $this->mUsers->logout();
+        $this->redirect();
     }
-
 
 
     /**
@@ -53,32 +50,31 @@ class C_Auth extends C_BasePublicly
     public function action_register()
     {
         // Если пользователь нажал кнопку
-        if($this->IsPost()){
-
+        if ($this->isPost()) {
             // Если поля "Пароль" и "Повторить пароль" совпадают
-            if($_POST['password'] == $_POST['confirm']){
-
+            if ($_POST['password'] == $_POST['confirm']) {
                 // зарегистрировать пользователя
-                $result = $this->mUsers->Add($_POST['login'], $_POST['password'], $_POST['username'], 5);
-
+                $result = $this->mUsers->add(
+                    $_POST['login'], 
+                    $_POST['password'], 
+                    $_POST['username'], 
+                    5
+                );
                 // Проверить, какой результат
-                if ( is_integer($result) ){
-
+                if (is_integer($result)) {
                     // если регистрация прошла успешно
-                    if($result > 0){
-
+                    if ($result > 0) {
                         // авторизовать пользователя и отправить в профиль
-                        $this->mUsers->Login( $_POST['login'], $_POST['password']);
-                        $this->Redirect('/profile');
+                        $this->mUsers->login($_POST['login'], $_POST['password']);
+                        $this->redirect('/profile');
                     }
 
                     $message = 'Такой пользователь уже существует.';
-                }
-                else{
+                } else {
                     $message = 'Заполните поля формы.';
                 }
-            }
-            else{
+                
+            } else {
                 $message = 'Поля "Пароль" и "Повторить пароль" не совпадают.';
             }
 
@@ -86,19 +82,18 @@ class C_Auth extends C_BasePublicly
             // в случае ошибки
             $login = $_POST['login'];
             $username = $_POST['username'];
-        }
+            
         // если только пришли
-        else{
+        } else {
             $login = '';
             $username = '';
         }
-
 
         // Название страницы
         $this->title .= ' :: Зарегистрироваться';
 
         // Подготовить внутренний шаблон страницы для передачи его в базовый шаблон
-        $this->content = $this->GetHtml(
+        $this->content = $this->getHtml(
             'v_register.php',
             array(
                 'login' => $login, // введённый пользователем логин

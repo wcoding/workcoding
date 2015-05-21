@@ -4,7 +4,6 @@
  */
 abstract class C_BaseAdmin extends C_Base
 {
-
     /**
      * Метод подготавливает данные, которые будут использоваться
      * в методе action_*
@@ -14,16 +13,14 @@ abstract class C_BaseAdmin extends C_Base
         parent::before();
 
         // Если пользователь не зарегистрирован - отправляем на страницу регистрации.
-        if ($this->mUsers->Get() == null)
-        {
-            $this->Redirect('/auth/login');
+        if ($this->mUsers->get() == null) {
+            $this->redirect('/auth/login');
         }
 
         // Простым пользователям нельзя в админку
-        if ($this->mUsers->Can('USER'))
-        {
+        if ($this->mUsers->can('USER')) {
             // Редирект на главную страницу
-            $this->Redirect();
+            $this->redirect();
         }
 
         // Переопределить название сайта
@@ -39,7 +36,7 @@ abstract class C_BaseAdmin extends C_Base
     public function render()
     {
         $vars = array('title' => $this->title, 'content' => $this->content);
-        $page = $this->GetHtml('v_base_admin.php', $vars);
+        $page = $this->getHtml('v_base_admin.php', $vars);
         echo $page;
     }
 }

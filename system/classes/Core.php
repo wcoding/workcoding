@@ -2,13 +2,8 @@
 /**
  * Класс с набором полезных методов
  */
-
 class Core
 {
-
-    public function __construct(){}
-
-
     /**
      * Функция автозагрузки нужного класса.
      *
@@ -19,22 +14,27 @@ class Core
      * @param string $classname имя файла котрый нужно подключить
      * @return void
      */
-    public static function auto_load($classname){
+    public static function auto_load($classname)
+    {
+        if (file_exists(SYSPATH . "$classname.php")) {
+            include_once(SYSPATH . "$classname.php");
+        }
 
-        if( file_exists(SYSPATH."$classname.php") )
-            include_once(SYSPATH."$classname.php");
+        if (file_exists(CONTROLLER . "$classname.php")) {
+            include_once(CONTROLLER . "$classname.php");
+        }
 
-        if( file_exists(CONTROLLER."$classname.php") )
-            include_once(CONTROLLER."$classname.php");
+        if (file_exists(CONTROLLER_ADMIN . "$classname.php")) {
+            include_once(CONTROLLER_ADMIN . "$classname.php");
+        }
 
-        if( file_exists(CONTROLLER_ADMIN."$classname.php") )
-            include_once(CONTROLLER_ADMIN."$classname.php");
+        if (file_exists(CONTROLLER_PUBLICLY . "$classname.php")) {
+            include_once(CONTROLLER_PUBLICLY . "$classname.php");
+        }
 
-        if( file_exists(CONTROLLER_PUBLICLY."$classname.php") )
-            include_once(CONTROLLER_PUBLICLY."$classname.php");
-
-        if( file_exists(MODEL."$classname.php") )
-            include_once(MODEL."$classname.php");
+        if (file_exists(MODEL . "$classname.php")) {
+            include_once(MODEL . "$classname.php");
+        }
     }
 
 
@@ -56,45 +56,45 @@ class Core
      *      )
      *      =====================================================================
      *
-     *      $arr = Core::GetConfig('database', $group = '');
+     *      $arr = Core::getConfig('database', $group = '');
      *      или
-     *      $hostname = Core::GetConfig('database', 'MySQL.connection.hostname');
+     *      $hostname = Core::getConfig('database', 'MySQL.connection.hostname');
      *
      * @param string $filename название файла конфигурации
      * @param string $group путь из ключей в многомерном массиве, через точку
      * @return array|string возвращает конфиг-нный массив либо конкретное значение из этого массива
      */
-    public static function GetConfig($filename, $group = '')
+    public static function getConfig($filename, $group = '')
     {
         $config = array();
 
         // Если запрашиваемого файла не существует, вернуть пустой массив
-        if ( !file_exists(APPPATH .'config'.DIRECTORY_SEPARATOR.$filename.'.php') )
+        if (! file_exists(APPPATH . 'config' . DS . $filename . '.php')) {
             return $config;
+        }
 
         // Вытащить массив из файла конфигурации
-        $config = (array)include(APPPATH .'config'.DIRECTORY_SEPARATOR.$filename.'.php');
+        $config = (array) include(APPPATH . 'config' . DS . $filename . '.php');
 
         // Если хотим получить конкретное значение или элемент массива
-        if ($group !== '')
-        {
+        if ($group !== '') {
             // По ключу, достать элемент, из многомерного массива
-            foreach(explode('.', $group) as $key){
+            foreach (explode('.', $group) as $key) {
                 $config = $config[$key];
             }
         }
 
         return $config;
     }
-    
-    
+
+
     /**
      * Удалить из строки html-теги и лишние пробелы.
      *
      * @param  string $string
      * @return string 
      */    
-    public static function TextOnly($string)
+    public static function textOnly($string)
     {
         $string = preg_replace ('/<[^>]*>/', ' ', $string);
         $string = str_replace("\r", '', $string);
