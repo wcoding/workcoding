@@ -180,7 +180,7 @@ class M_User
 
         $where = "id_user = $id";
 
-        return $this->dbase->Update('users', $obj, $where);
+        return $this->dbase->update('users', $obj, $where);
     }
 
 
@@ -188,17 +188,19 @@ class M_User
      *  Получение пользователя
      *
      * @param null|int $id_user если не указан, брать текущего
-     * @return null|array ассоциативный массив с данными пользователя
+     * @return array ассоциативный массив с данными пользователя
     */
     public function get($id_user = null)
-    {	
+    {
+        $result = array();
+        
         // Если id_user не указан, берем его по текущей сессии.
         if ($id_user == null) {
             $id_user = $this->getUid();
         }
 
         if ($id_user == null) {
-            return null;
+            return $result;
         }
 
         // А теперь просто возвращаем пользователя по id_user.
@@ -250,7 +252,7 @@ class M_User
      * @param int $id_user идентификатор пользователя, чьи данные изменить
      * @param string $username имя пользователя
      * @param int $id_role идентифмкатор роли пользователя
-     * @return bool|int
+     * @return int
     */
     public function edit($id_user, $username, $id_role)
     {
@@ -261,7 +263,7 @@ class M_User
 
         // Проверка.
         if ($username == '') {
-            return false;
+            return 0;
         }
 
         // Запрос.
@@ -299,7 +301,7 @@ class M_User
      * @return bool результат - true или false
     */
     public function can($priv, $id_user = null)
-    {
+    {        
         // Получить данные пользователя
         $user = $this->get($id_user);
 

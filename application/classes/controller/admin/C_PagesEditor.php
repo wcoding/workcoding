@@ -18,7 +18,7 @@ class C_PagesEditor extends C_BaseAdmin
     /**
      * Экшн главной страницы редактора страниц.
      */
-    public function action_index()
+    public function actionIndex()
     {
         // Название страницы
         $this->title .= ' :: Редактор страниц сайта';

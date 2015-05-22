@@ -14,7 +14,7 @@ class Core
      * @param string $classname имя файла котрый нужно подключить
      * @return void
      */
-    public static function auto_load($classname)
+    public static function autoLoad($classname)
     {
         if (file_exists(SYSPATH . "$classname.php")) {
             include_once(SYSPATH . "$classname.php");

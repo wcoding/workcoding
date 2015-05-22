@@ -23,7 +23,7 @@ class C_ArticlesEditor extends C_BaseAdmin
     /**
      * Экшн главной страницы редактора статей.
      */
-    public function action_index()
+    public function actionIndex()
     {
         // Название страницы
         $this->title .= ' :: Редактор статей';
@@ -41,7 +41,7 @@ class C_ArticlesEditor extends C_BaseAdmin
     /**
      * Экшн добавления новой статьи.
      */
-    public function action_add()
+    public function actionAdd()
     {
         // Обработка отправки формы.
         if ($this->isPost()) {
@@ -82,7 +82,7 @@ class C_ArticlesEditor extends C_BaseAdmin
     /**
      * Экшн редактирования или удаления статьи.
      */
-    public function action_edit()
+    public function actionEdit()
     {
         // Обработка отправки формы.
         if ($this->isPost()) {
@@ -93,7 +93,7 @@ class C_ArticlesEditor extends C_BaseAdmin
             );
             
             // Если изменения сохранены
-            if ($edit) {
+            if (0 < $edit) {
                 $this->redirect('/ArticlesEditor');
             }
 

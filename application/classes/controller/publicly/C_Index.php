@@ -21,7 +21,7 @@ class C_Index extends C_BasePublicly
     /**
      * Экшн списка статей, на главной странице.
      */
-    public function action_index()
+    public function actionIndex()
     {
         // Вытащить все статьи.
         $articles = $this->mArticle->all();

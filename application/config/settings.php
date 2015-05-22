@@ -3,5 +3,5 @@
 return array(
     'siteName'=>'PHP. Уровень 2',
     'copyright'=>'workcoding.ru',
-    'actionPrefix'=>'action_'
+    'actionPrefix'=>'action'
 );

@@ -2,8 +2,8 @@
 // Подгрузить основной класс
 require SYSPATH . 'classes/Core.php';
 
-// Зарегистрировать функцию автозагрузки классов Core::auto_load()
-spl_autoload_register(array('Core', 'auto_load'));
+// Зарегистрировать функцию автозагрузки классов Core::autoLoad()
+spl_autoload_register(array('Core', 'autoLoad'));
 	
 // Языковая настройка.
 setlocale(LC_ALL, 'ru_RU.UTF-8'); // устанавливаем нужную локаль (для дат, денег, запятых и пр.)

@@ -7,10 +7,10 @@ class C_Auth extends C_BasePublicly
     /**
      * Авторизация пользователя
      */
-    public function action_login()
+    public function actionLogin()
     {
         // Флаг ошибки
-        $auth = false;
+        $error = false;
 
         // Если пользователь нажал кнопку "Войти"
         if ($this->isPost()) {
@@ -24,20 +24,22 @@ class C_Auth extends C_BasePublicly
             if (true === $auth) {
                 $this->redirect('/profile');
             }
+            
+            $error = true;
         }
 
         // Название страницы
         $this->title .= ' :: Авторизация';
 
         // Подготовить внутренний шаблон страницы для передачи его в базовый шаблон
-        $this->content = $this->getHtml('v_login.php', array('error' => $auth));
+        $this->content = $this->getHtml('v_login.php', array('error' => $error));
     }
 
 
     /**
      * Выход
      */
-    public function action_logout()
+    public function actionLogout()
     {
         $this->mUsers->logout();
         $this->redirect();
@@ -47,7 +49,7 @@ class C_Auth extends C_BasePublicly
     /**
      * Регистрация нового пользователя
      */
-    public function action_register()
+    public function actionRegister()
     {
         // Если пользователь нажал кнопку
         if ($this->isPost()) {

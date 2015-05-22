@@ -23,13 +23,13 @@ class C_Article extends C_BasePublicly
     /**
      * Экшн чтения статьи.
      */
-    public function action_index()
+    public function actionIndex()
     {
         // Если параметры переданы через URL
         if (isset($this->params[0])) {
 
             // Извлечение статьи.
-            $article = $this->mArticle->Get($this->params[0]);
+            $article = $this->mArticle->get($this->params[0]);
 
             // если в базе нет такой статьи
             if (! is_array($article)) {
@@ -64,16 +64,16 @@ class C_Article extends C_BasePublicly
     /**
      * Экшн добавления комментария, от пользователя.
      */
-    public function action_comments()
+    public function actionComments()
     {
-        if ($this->isPost() and null !== $this->mUsers->get()) {
+        if ($this->isPost() and 0 !== count($this->mUsers->get())) {
             $add = $this->mComments->add(
                 $_POST['id'],
                 $this->mUsers->get()['id_user'],
                 Core::textOnly($_POST['message'])
             );
             
-            if ($add) {
+            if (0 < $add) {
                 // если новый комментарий сохранён
                 $this->redirect('/article/index/' . $_POST['id']);            
             } else {

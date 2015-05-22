@@ -33,7 +33,7 @@ for ($i=0; $i <= count($info); $i++) {
 }
 
 // Получить название метода класса из URL
-$action .= isset($params['action']) ? $params['action'] : 'index';
+$action .= isset($params['action']) ? ucfirst($params['action']) : 'Index';
 
 // Получить название контроллера из URL
 $c = isset($params['controller']) ? $params['controller'] : '' ;
@@ -76,10 +76,10 @@ switch ($c) {
     default:
         // От бесконечных дублей главной страницы
         header("HTTP/1.0 404 Not Found");
-        include(VIEW.'404.php');
+        include(VIEW . '404.php');
         exit;
 }
 
 // Передать имя метода, который должен отработать у класса
 // экземпляр которого только что был создан.
-$controller->Request($action, $params);
+$controller->request($action, $params);

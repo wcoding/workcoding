@@ -18,7 +18,7 @@ class C_UsersEditor extends C_BaseAdmin
     /**
      * Экшн главной страницы редактора пользователей.
      */
-    public function action_index()
+    public function actionIndex()
     {
         // Название страницы
         $this->title .= ' :: Редактор пользователей';
@@ -33,14 +33,14 @@ class C_UsersEditor extends C_BaseAdmin
     }
 
 
-    public function action_edit()
+    public function actionEdit()
     {
         // Нажали кнопку, хотим изменить данные
         if ($this->isPost()) {
             $save = $this->mUsers->edit($_POST['userID'], $_POST['username'], $_POST['role']);
             
             // Если валидация полей формы прошла успешно и данные сохранены
-            if (false !== $save) {
+            if (0 < $save) {
                 $this->redirect('/UsersEditor/edit/' . $_POST['userID']);
             } else {
                 $message = 'Все поля должны быть заполнены.';

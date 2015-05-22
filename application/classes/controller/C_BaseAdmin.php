@@ -13,7 +13,7 @@ abstract class C_BaseAdmin extends C_Base
         parent::before();
 
         // Если пользователь не зарегистрирован - отправляем на страницу регистрации.
-        if ($this->mUsers->get() == null) {
+        if (count($this->mUsers->get()) === 0) {
             $this->redirect('/auth/login');
         }
 

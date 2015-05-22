@@ -2,7 +2,6 @@
 /**
  * Класс модели комментариев к статье
  */
-
 class M_Comment
 {
     private static $instance;// ссылка на экземпляр класса
@@ -59,7 +58,7 @@ class M_Comment
      * @param	int	$id_article  идентификатор статьи
      * @param	int	$user_id  id комментатора
      * @param	string $message  текст комментария
-     * @return	bool|int  идентификатор нового комментария иначе false
+     * @return	int  идентификатор нового комментария
     */
     public function add($id_article, $user_id, $message)
     {
@@ -68,7 +67,7 @@ class M_Comment
 
         // Проверка.
         if ($message == '') {
-            return false;
+            return 0;
         }
 
         // Запрос.
@@ -79,5 +78,4 @@ class M_Comment
 
         return $this->dbase->insert('comments', $obj);
     }
-
 }

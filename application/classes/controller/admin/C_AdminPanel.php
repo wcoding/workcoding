@@ -7,7 +7,7 @@ class C_AdminPanel extends C_BaseAdmin
     /**
      * Экшн главной страницы
      */
-    public function action_index()
+    public function actionIndex()
     {
         // Название страницы
         $this->title .= ' :: Главная';

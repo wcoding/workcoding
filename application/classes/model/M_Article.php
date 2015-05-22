@@ -109,7 +109,7 @@ class M_Article
 
 		// Проверка.
 		if ($title == '') {
-			return false;
+			return 0;
         }
 
 		// Запрос.

@@ -32,7 +32,7 @@ $user - массив данных о пользователе
 
 <a name="comments"></a>
 
-<? if( null !== $user ): ?>
+<? if( 0 !== count($user) ): ?>
 
 <? if($error): ?>
     <b style="color: red;">Заполните все поля!</b>

@@ -25,7 +25,7 @@ class C_CommentsEditor extends C_BaseAdmin
     /**
      * Экшн главной страницы редактора комментариев.
      */
-    public function action_index()
+    public function actionIndex()
     {
         // Название страницы
         $this->title .= ' :: Редактор комментариев';

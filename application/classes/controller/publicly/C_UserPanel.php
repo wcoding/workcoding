@@ -19,19 +19,19 @@ class C_UserPanel extends C_BasePublicly
         $this->mUsers->clearSessions();
 
         // Если пользователь не зарегистрирован - отправляем на страницу регистрации.
-        if ($this->mUsers->get() == null) {
+        if (count($this->mUsers->get()) === 0) {
             $this->redirect('/auth/login');
         }
 
         // Если пользователь получил ban, дать отлуп
-        if ($this->mUsers->can('NO_ACCESS')) {
+        if (false !== $this->mUsers->can('NO_ACCESS')) {
             $this->redirect('/auth/logout');
         }
 
         $this->can = false;
 
         // проверить право доступа в админку
-        if (! $this->mUsers->can('USER')) {
+        if (false === $this->mUsers->can('USER')) {
             $this->can = true;
         }
 
@@ -42,7 +42,7 @@ class C_UserPanel extends C_BasePublicly
     /**
      * Экшн страницы профиля
      */
-    public function action_index()
+    public function actionIndex()
     {
         if ($this->isPost()) {
             // Поля равны и в том случае, если пользователь их не заполнял
