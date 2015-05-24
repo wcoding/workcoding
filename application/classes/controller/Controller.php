@@ -1,4 +1,7 @@
-<?php defined('SYSPATH') OR die('No direct script access.');
+<?php 
+
+namespace Classes\Controller;
+
 /**
  * Базовый класс контроллера.
 */
@@ -86,7 +89,7 @@ abstract class Controller
 	public function notFound()
 	{
 		header("HTTP/1.0 404 Not Found");
-		include(VIEW . '404.php');
+		include(VIEW . 'v_404.php');
 		exit;
 	}
 	
@@ -112,7 +115,7 @@ abstract class Controller
 
 	protected function redirect($url = '/')
 	{
-		header("location: {$this->SetURI($url)}");
+		header("location: {$this->setURI($url)}");
 		exit;
 	}
 }

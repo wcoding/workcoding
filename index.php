@@ -10,7 +10,7 @@ include_once('path.const.php');
 require APPPATH . 'startup.php';
 
 // Префикс методов класса, из конфига
-$action = Core::getConfig('settings', 'actionPrefix');
+$action = WorkCoding\Core::getConfig('settings', 'actionPrefix');
 
 $info = explode('/', $_GET['q']);
 $params = array();
@@ -44,34 +44,34 @@ $c = isset($params['controller']) ? $params['controller'] : '' ;
 // с именем такимже, как имя класса.
 switch ($c) {
     case 'editor':
-        $controller = new C_AdminPanel;
+        $controller = new Classes\Controller\Admin\CAdminPanel;
         break;
     case 'ArticlesEditor':
-        $controller = new C_ArticlesEditor;
+        $controller = new Classes\Controller\Admin\CArticlesEditor;
         break;
     case 'CommentsEditor':
-        $controller = new C_CommentsEditor;
+        $controller = new Classes\Controller\Admin\CCommentsEditor;
         break;
     case 'UsersEditor':
-        $controller = new C_UsersEditor;
+        $controller = new Classes\Controller\Admin\CUsersEditor;
         break;
     case 'PagesEditor':
-        $controller = new C_PagesEditor;
+        $controller = new Classes\Controller\Admin\CPagesEditor;
         break;
     case 'auth':
-        $controller = new C_Auth;
+        $controller = new Classes\Controller\Publicly\CAuth;
         break;
     case 'profile':
-        $controller = new C_UserPanel;
+        $controller = new Classes\Controller\Publicly\CUserPanel;
         break;
     case 'article':
-        $controller = new C_Article;
+        $controller = new Classes\Controller\Publicly\CArticle;
         break;
     case 'page':
-        $controller = new C_Pages;
+        $controller = new Classes\Controller\Publicly\CPages;
         break;
     case '':
-        $controller = new C_Index;
+        $controller = new Classes\Controller\Publicly\CIndex;
         break;
     default:
         // От бесконечных дублей главной страницы

@@ -1,8 +1,13 @@
 <?php 
+
+namespace Classes\Controller\Publicly;
+
+use Classes\Controller\CBasePublicly;
+
 /**
  * Контроллер страницы профиля, зарегестрированного пользователя
  */
-class C_UserPanel extends C_BasePublicly
+class CUserPanel extends CBasePublicly
 {
     private $can; // Флаг на доступ в админку
 

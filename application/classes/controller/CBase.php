@@ -1,8 +1,13 @@
-<?php defined('SYSPATH') OR die('No direct script access.');
+<?php 
+
+namespace Classes\Controller;
+
+use Classes\Model\MUser;
+
 /**
  * Базовый контроллер сайта.
 */
-abstract class C_Base extends Controller
+abstract class CBase extends Controller
 {
 	protected $title;		// заголовок страницы
 	protected $content;		// содержание страницы
@@ -11,7 +16,7 @@ abstract class C_Base extends Controller
 
 	function __construct()
 	{
-		$this->mUsers = M_User::instance();
+		$this->mUsers = MUser::instance();
 	}
 
 

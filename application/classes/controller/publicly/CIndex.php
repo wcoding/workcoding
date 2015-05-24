@@ -1,8 +1,14 @@
-<?php defined('SYSPATH') OR die('No direct script access.');
+<?php 
+
+namespace Classes\Controller\Publicly;
+
+use Classes\Controller\CBasePublicly;
+use Classes\Model\MArticle;
+
 /**
  * Контроллер главной страницы сайта сайта.
  */
-class C_Index extends C_BasePublicly
+class CIndex extends CBasePublicly
 {
     private $mArticle;// экземпляр класса модели статей
 
@@ -14,7 +20,7 @@ class C_Index extends C_BasePublicly
     protected function before()
     {
         parent::before();
-        $this->mArticle = M_Article::instance();
+        $this->mArticle = MArticle::instance();
     }
 
 

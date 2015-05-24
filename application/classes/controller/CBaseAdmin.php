@@ -1,8 +1,11 @@
-<?php defined('SYSPATH') OR die('No direct script access.');
+<?php 
+
+namespace Classes\Controller;
+
 /**
  * Базовый контроллер Панели администрирования.
  */
-abstract class C_BaseAdmin extends C_Base
+abstract class CBaseAdmin extends CBase
 {
     /**
      * Метод подготавливает данные, которые будут использоваться

@@ -1,8 +1,13 @@
-<?php defined('SYSPATH') OR die('No direct script access.');
+<?php 
+
+namespace Classes\Controller\Publicly;
+
+use Classes\Controller\CBasePublicly;
+
 /**
  * Контроллер для страниц сайта(не для статей)
  */
-class C_Pages extends C_BasePublicly
+class CPages extends CBasePublicly
 {
     /**
      * Метод подготавливает данные, которые будут использоваться

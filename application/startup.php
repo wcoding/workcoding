@@ -1,9 +1,9 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 // Подгрузить основной класс
-require SYSPATH . 'classes/Core.php';
+require SYSPATH . 'workcoding/Core.php';
 
 // Зарегистрировать функцию автозагрузки классов Core::autoLoad()
-spl_autoload_register(array('Core', 'autoLoad'));
+spl_autoload_register(array('WorkCoding\Core', 'autoLoad'));
 	
 // Языковая настройка.
 setlocale(LC_ALL, 'ru_RU.UTF-8'); // устанавливаем нужную локаль (для дат, денег, запятых и пр.)

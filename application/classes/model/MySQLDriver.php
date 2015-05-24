@@ -1,4 +1,9 @@
-<?php defined('SYSPATH') OR die('No direct script access.');
+<?php 
+
+namespace Classes\Model;
+
+use WorkCoding\Core;
+
 /**
  * Помощник работы с БД
 */

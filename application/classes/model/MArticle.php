@@ -1,9 +1,12 @@
-<?php defined('SYSPATH') OR die('No direct script access.');
+<?php 
+
+namespace Classes\Model;
+
 /**
  *  Класс модели статей.
  *
 */
-class M_Article
+class MArticle
 {
 	private static $instance; 	// ссылка на экземпляр класса
 	private $dbase; 			// драйвер БД
@@ -12,12 +15,12 @@ class M_Article
 	/**
 	 *  Получение единственного экземпляра класса (одиночка)
 	 *
-	 * @return M_Article
+	 * @return MArticle
      */
 	public static function instance()
 	{
 		if (self::$instance == null) {
-			self::$instance = new M_Article();
+			self::$instance = new MArticle();
         }
 
 		return self::$instance;

@@ -1,4 +1,7 @@
-<?php defined('SYSPATH') OR die('No direct script access.');
+<?php 
+
+namespace WorkCoding;
+
 /**
  * Класс с набором полезных методов
  */
@@ -16,25 +19,19 @@ class Core
      */
     public static function autoLoad($classname)
     {
-        if (file_exists(SYSPATH . "$classname.php")) {
-            include_once(SYSPATH . "$classname.php");
+        $name = str_replace('\\', '/', $classname);
+        
+        if (file_exists(SYSPATH . "$name.php")) {
+            include_once(SYSPATH . "$name.php");
+            return true;
         }
 
-        if (file_exists(CONTROLLER . "$classname.php")) {
-            include_once(CONTROLLER . "$classname.php");
+        if (file_exists(APPPATH . "$name.php")) {
+            include_once(APPPATH . "$name.php");
+            return true;
         }
-
-        if (file_exists(CONTROLLER_ADMIN . "$classname.php")) {
-            include_once(CONTROLLER_ADMIN . "$classname.php");
-        }
-
-        if (file_exists(CONTROLLER_PUBLICLY . "$classname.php")) {
-            include_once(CONTROLLER_PUBLICLY . "$classname.php");
-        }
-
-        if (file_exists(MODEL . "$classname.php")) {
-            include_once(MODEL . "$classname.php");
-        }
+        
+        return false;
     }
 
 

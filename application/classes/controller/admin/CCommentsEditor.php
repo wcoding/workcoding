@@ -1,8 +1,15 @@
-<?php defined('SYSPATH') OR die('No direct script access.');
+<?php 
+
+namespace Classes\Controller\Admin;
+
+use Classes\Controller\CBaseAdmin;
+use Classes\Model\MArticle;
+use Classes\Model\MComment;
+
 /**
  * Контроллер модерирования комментариев
  */
-class C_CommentsEditor extends C_BaseAdmin
+class CCommentsEditor extends CBaseAdmin
 {
     private $mArticle;// экземпляр класса модели статей
     private $mComments;// экземпляр класса модели комментариев к статье
@@ -12,8 +19,8 @@ class C_CommentsEditor extends C_BaseAdmin
     {
         parent::before();
 
-        $this->mArticle = M_Article::instance();
-        $this->mComments = M_Comment::instance();
+        $this->mArticle = MArticle::instance();
+        $this->mComments = MComment::instance();
 
         // Проверить право на работу с комментариями
         if (! $this->mUsers->can('USE_EDIT_COMMENTS')) {

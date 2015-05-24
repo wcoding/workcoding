@@ -1,8 +1,13 @@
-<?php defined('SYSPATH') OR die('No direct script access.');
+<?php 
+
+namespace Classes\Controller;
+
+use WorkCoding\Core;
+
 /**
  * Базовый контроллер публичной части сайта.
  */
-abstract class C_BasePublicly extends C_Base
+abstract class CBasePublicly extends CBase
 {
     /**
      * Метод подготавливает данные, которые будут использоваться

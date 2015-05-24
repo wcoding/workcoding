@@ -1,8 +1,13 @@
-<?php
+<?php 
+
+namespace Classes\Controller\Publicly;
+
+use Classes\Controller\CBasePublicly;
+
 /**
  * Контроллер авторизации
  */
-class C_Auth extends C_BasePublicly
+class CAuth extends CBasePublicly
 {
     /**
      * Авторизация пользователя

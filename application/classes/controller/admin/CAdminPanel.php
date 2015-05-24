@@ -1,8 +1,13 @@
-<?php defined('SYSPATH') OR die('No direct script access.');
+<?php 
+
+namespace Classes\Controller\Admin;
+
+use Classes\Controller\CBaseAdmin;
+
 /**
  * Контроллер главной страницы администрирования сайта
  */
-class C_AdminPanel extends C_BaseAdmin
+class CAdminPanel extends CBaseAdmin
 {
     /**
      * Экшн главной страницы

@@ -1,8 +1,13 @@
-<?php defined('SYSPATH') OR die('No direct script access.');
+<?php 
+
+namespace Classes\Controller\Admin;
+
+use Classes\Controller\CBaseAdmin;
+
 /**
  * Контроллер менеджера пользователей сайта
  */
-class C_UsersEditor extends C_BaseAdmin
+class CUsersEditor extends CBaseAdmin
 {
     protected function before()
     {

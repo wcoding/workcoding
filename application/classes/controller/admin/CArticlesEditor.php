@@ -1,8 +1,14 @@
-<?php defined('SYSPATH') OR die('No direct script access.');
+<?php 
+
+namespace Classes\Controller\Admin;
+
+use Classes\Controller\CBaseAdmin;
+use Classes\Model\MArticle;
+
 /**
  * Конттроллер редактора статей.
  */
-class C_ArticlesEditor extends C_BaseAdmin
+class CArticlesEditor extends CBaseAdmin
 {
     private $mArticle;// экземпляр класса модели статей
 
@@ -11,7 +17,7 @@ class C_ArticlesEditor extends C_BaseAdmin
     {
         parent::before();
 
-        $this->mArticle = M_Article::instance();
+        $this->mArticle = MArticle::instance();
 
         // Проверить право на работу со статьями
         if (! $this->mUsers->can('USE_EDIT_ADD_ARTICLES')) {

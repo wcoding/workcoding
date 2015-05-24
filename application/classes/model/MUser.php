@@ -1,9 +1,12 @@
-<?php defined('SYSPATH') OR die('No direct script access.');
+<?php 
+
+namespace Classes\Model;
+
 /**
  *  Класс модели пользователи.
  *
 */
-class M_User
+class MUser
 {	
     private static $instance;// экземпляр класса
     private $dbase;// драйвер БД
@@ -14,12 +17,12 @@ class M_User
     /**
      *  Получение единственного экземпляра класса (одиночка)
      *
-     * @return M_User
+     * @return MUser
     */
     public static function instance()
     {
         if (self::$instance == null)
-            self::$instance = new M_User();
+            self::$instance = new MUser();
 
         return self::$instance;
     }

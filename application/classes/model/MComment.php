@@ -1,8 +1,11 @@
-<?php defined('SYSPATH') OR die('No direct script access.');
+<?php 
+
+namespace Classes\Model;
+
 /**
  * Класс модели комментариев к статье
  */
-class M_Comment
+class MComment
 {
     private static $instance;// ссылка на экземпляр класса
     private $dbase;// драйвер БД
@@ -11,12 +14,12 @@ class M_Comment
     /**
      *  Получение единственного экземпляра (одиночка)
      *
-     * @return M_Comment
+     * @return MComment
      */
     public static function instance()
     {
         if (self::$instance == null) {
-            self::$instance = new M_Comment();
+            self::$instance = new MComment();
         }
 
         return self::$instance;

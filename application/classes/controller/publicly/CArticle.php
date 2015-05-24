@@ -1,8 +1,16 @@
-<?php defined('SYSPATH') OR die('No direct script access.');
+<?php 
+
+namespace Classes\Controller\Publicly;
+
+use WorkCoding\Core;
+use Classes\Controller\CBasePublicly;
+use Classes\Model\MArticle;
+use Classes\Model\MComment;
+
 /**
  * Контроллер вывода статей для публичной части сайта.
  */
-class C_Article extends C_BasePublicly
+class CArticle extends CBasePublicly
 {
     private $mArticle;// экземпляр класса модели статей
     private $mComments;// экземпляр класса модели комментариев к статье
@@ -15,8 +23,8 @@ class C_Article extends C_BasePublicly
     protected function before()
     {
         parent::before();
-        $this->mArticle = M_Article::instance();
-        $this->mComments = M_Comment::instance();
+        $this->mArticle = MArticle::instance();
+        $this->mComments = MComment::instance();
     }
 
 
